@@ -19,10 +19,54 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="asset_manager\source\AssetManager.cpp" />
+    <ClCompile Include="asset_manager\source\TestAssetManager.cpp" />
+    <ClCompile Include="game\header\Object.cpp" />
+    <ClCompile Include="game\source\Application.cpp" />
+    <ClCompile Include="game\source\Character.cpp" />
+    <ClCompile Include="game\source\Doodad.cpp" />
+    <ClCompile Include="game\source\Monster.cpp" />
+    <ClCompile Include="game\source\TestGame.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="tests\TestVisualization.cpp" />
+    <ClCompile Include="utils\source\TestUtils.cpp" />
+    <ClCompile Include="utils\source\ToString.cpp" />
+    <ClCompile Include="visualization\header\Layer.cpp" />
+    <ClCompile Include="visualization\source\Sprite.cpp" />
+    <ClCompile Include="visualization\source\Visualizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="assets\ResourceList.json" />
+    <Text Include="CodeStyle.txt" />
+    <Text Include="GameDesignDocument.txt" />
     <Text Include="Readme.txt" />
+    <Text Include="Todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="asset_manager\header\AssetManager.h" />
+    <ClInclude Include="boost_extension\header\stack_trace_config.h" />
+    <ClInclude Include="exceptions\header\AssetManagerExceptions.h" />
+    <ClInclude Include="exceptions\header\GameExceptions.h" />
+    <ClInclude Include="game\header\Application.h" />
+    <ClInclude Include="game\header\Character.h" />
+    <ClInclude Include="game\header\Doodad.h" />
+    <ClInclude Include="game\header\Monster.h" />
+    <ClInclude Include="game\header\Object.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
+    <ClInclude Include="utils\header\Bounds.h" />
+    <ClInclude Include="utils\header\NovoTree.h" />
+    <ClInclude Include="utils\header\Point.h" />
+    <ClInclude Include="utils\header\SharedPointerDefintion.h" />
+    <ClInclude Include="utils\header\ToString.h" />
+    <ClInclude Include="utils\header\utils.hpp" />
+    <ClInclude Include="visualization\header\Layer.h" />
+    <ClInclude Include="visualization\header\Sprite.h" />
+    <ClInclude Include="visualization\header\Visualizable.h" />
+    <ClInclude Include="visualization\header\Visualizer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\jsons\Doodads.json" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -82,9 +126,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\SFML\2_4_2_install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\Boost\boost_1_66_0\stage\lib;E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -93,12 +139,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\SFML\2_4_2_install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>E:\Boost\boost_1_66_0;E:\SFML\2_4_2_install\include;$(SolutionDir)\SelfPlayingRPG\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;BOOST_USER_CONFIG="./boost_extension/header/stack_trace_config.h";BOOST_STACKTRACE_LINK;BOOST_STACKTRACE_USE_WINDBG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\Boost\boost_1_66_0\stage\lib;E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_stacktrace_windbg-vc141-mt-gd-x64-1_66.lib;sfml-system-d.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,11 +156,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\SFML\2_4_2_install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\Boost\boost_1_66_0\stage\lib;E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -125,11 +173,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>E:\SFML\2_4_2_install\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>E:\Boost\boost_1_66_0\stage\lib;E:\SFML\2_4_2_install\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-audio.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

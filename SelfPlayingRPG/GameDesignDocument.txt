@@ -1,0 +1,82 @@
+##################################
+###
+###      SelfPlaying RPG - Game Design Document
+###
+###		Author : Tobias Gepp	12.April.2018
+###
+###	Definition of the programing style used in this project.
+###
+##################################
+
+
+
+***	Story
+* The story is realy not important to this game.
+
+The player summoned into a new land from a portal of unkown material.
+His soul was created during the summoning, so he has no abilities at all.
+He is like a newborn, yet he has the intellect and body of a grown up.
+Only one simple instruction is given to him: "Live!".
+
+*** World
+
+The world is random generated and possibly infinite in size.
+Only the world around a certain range of charatcers will be updated.
+
+*** Environement
+
+The game has multiple environemental regions.
+The areas can be small or very large at scale.
+Any type of region can neighbour another, there is no restriction in that regard.
+These terrains are static, once the region is generated it stays the same forever.
+Each terrain has some properties that influence things within this region.
+The properties of a terrain type might change during the game though.
+These properties are 
+	- Rain Start Chance		0 - 100 %	/ min
+		// How often does it rain
+	- Rain Heavyness		liters / min
+		// This determines how heavy a rainfall gets
+	- Temperature Day		[ -60°C ] - [ +60°C ]
+	- Temperature Night		[ -60°C ] - [ +60°C ]
+	- Temperature Deviation		[ 0°C ] - [ 30°C ]
+		// How much can the temperature differ from the standard
+	- Brightness Day		0 - 100 %
+	- Brightness Night		0 - 100 %
+		// 0% is total darkness, while 100% means absolute illumination
+	- Texture Set
+		// How does the basic terrain looks like
+
+
+*** Gameplay
+
+The Gameplay is simple.
+You can move your character with w,a,s,d.
+A main weapon can be used with left mouse button, 
+while a off hand item is on the right mouse button.
+Attacking is possible while moving.
+A Monster or character hit by an attack gets damage and a slight knockback.
+Monster are unable to attack when knocked back.
+When a monster dies it allways drops the same items, but the amount may varry.
+When a character dies he is in a KO state, from wich he needs some time to recover and gets teleported back to the base when ready.
+
+Monster and Characters share the same stat-set that determines they fighting power.
+
+
+
+****** Direct stats
+	// Stats that directly influence your abilities
+	HitPoints : If your hitpoints become 0 your are KO / DEAD.
+	
+	AttackDamageBlunt : The Blunt Damage dealt by a hit.
+	AttackDamagePierce : The Pierce Damage dealt by a hit.
+	AttackSpeed : Time needed to do next Attack.
+
+	Defense : Reduces the damge taken from Pierce 
+	Resistance : Reduces the damage taken from Blunt
+
+****** Stats and Influence
+	Strength : Increases 'Blunt Damage' and HitPoints.
+	Dexterity : Increases AttackSpeed and 'Pierce Damage'.
+	Stamina : Determine how many hits you can take before KO.
+
+

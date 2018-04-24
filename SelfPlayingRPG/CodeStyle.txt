@@ -1,0 +1,159 @@
+##################################
+###
+###      SelfPlaying RPG - Code Style
+###
+###		Author : Tobias Gepp	12.April.2018
+###
+###	Definition of the programing style used in this project.
+###
+##################################
+
+
+1. File and folder structure
+2. Class definition
+3. Method declaration
+4. Other
+
+
+
+
+
+
+
+
+
+###	1.
+### File and folder structure :
+
+
+							// Packages are classes that fit well together and have their own namespace
+							// Every Package has a 'Exception.h' wich declares all custom exceptions 
+							// thrown from any class within this package
+<ProjectPath>\<package>\header\Exception.h
+<ProjectPath>\<package>\header\<ClassName>.h
+<ProjectPath>\<package>\source\<ClassName>.cpp
+							// An assets folder containing replacable resources
+							// like images or sounds
+							// a deeper structure depends on the assets present
+<ProjectPath>\Assets\Images\<Image>.png
+<ProjectPath>\Assets\<Resource Path And Name>
+							// Maybe scripts
+<ProjectPath>\Assets\Scripts\<Script>.lua (or others)
+							// A Folder containing all executables or dll's
+<ProjectPath>\bin\<Library>.dll
+							// A Folder for SaveGame files
+<ProjectPath>\Save\<SaveGame>.sav
+
+
+### Basic Style
+Naming : prefered underscore			
+Indention : Allman						// Brackets in their own line
+										// Except for lambdas where	
+										//		[]() => {/*CODE*/}
+										// and 
+										//		[]() => {
+										//				// CODE
+										//		}
+										// are possible
+
+
+
+### 2.										
+### ClassDefinition (*.h) :
+
+template< typename _TEMPLATE_VARIABLE >	// Underscore + Uppercase speaking name
+ClassName								// CamelCase speaking name
+{
+public:	
+										// Macro that defines shared pointers for this class
+	DEFINE_SHARED_POINTERS( ClassName );
+										// redeclare the template with 'using' and no Underscore
+	using TEMPLATE_VARIABLE = _TEMPLATE_VARIABLE;	
+										// narrow used Classes down to contain as little template arguments as possible
+										// (without just naming them 'Type_TemplateArgument')
+										// CamelCase speaking name
+	using TypeNarrowing = Type<TemplateArgument>;
+private:
+										// 'my_' + Lowercase speaking name 
+										// = default value
+	bool my_is_flagname = false;		// flags are either prepended a 'is_' or 'has_' whatever fits best.
+	bool my_has_flagname = false;		// 
+	int my_private_field = 0;		
+protected:
+	int my_protected_field = 0;	
+public:
+	int my_public_field = 0;	
+public:
+										// Usualy a normal constructor is sufficient
+										// Yet if the constructor gets too heavy or can fail
+										// make it private and have a public static 'create_instance()' function that 
+										// can throw exceptions
+	ClassName();
+	virtual ~ClassName();
+	
+										// setter and getter are nice, but don't have to be defined for all fields
+										// per default they can be inlined but more complex definitions should be defined
+										// in the .cpp
+	inline void set_private_field(int value) {my_private_field = value};
+	inline const int get_private_field() const {return my_private_field};
+										// if the getter can be const but isn't allways, this is neat
+	inline int get_private_field() {return const_cast<int>(const_cast<const ClassName*>(this)->get_private_field());};
+										// the getter for flags differ a little
+	inline bool is_flagname() {return my_is_flagname;}
+										// or
+	inline bool has_flagname() {return my_has_flagname;}
+
+
+	int public_method(int arg1, int arg2);
+protected:
+	void protected_method(int arg1, int arg2);
+private:
+	void private_method();
+public:
+	static void static_method();
+}
+
+
+
+### Method declaration (*.cpp) :
+// try to keep same order as in declaration
+
+int ClassName::public_method(int arg1, int arg2)
+{
+												// return early if possible
+	if ( arg1 < 0 ) throw MyException();		// first check if arguments cause an exception
+	if ( arg2 < 0 || arg2 > 100 ) return 0;		// second check if they cause the function to have default values
+	int result = 0;
+	/*
+		More complex calculation
+		Try to have no return within this section
+		You can break from loops with goto if necessary
+	*/
+	return result;
+}
+
+// or
+
+void ClassName::protected_method(
+		int arg1,
+		int arg2
+	)
+{
+	// TODO										//	TODO marker to allways find the spots that are not yet functional or complete
+	// This is supposed to happen				//	Closer look at what to do in the next line
+	/*											//
+		CODE
+	*/
+	return;
+}
+
+
+### 4.
+### Others :
+Use as much templates as possible, but allways declare default usage (typedef).
+
+/* 
+PS:
+	this is not a complete specification of style 
+	it may be modified or advanced in the future.
+*/

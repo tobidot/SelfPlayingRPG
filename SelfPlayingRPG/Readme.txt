@@ -1,8 +1,15 @@
 ##################################
-###      SelfPlaying RPG
+###
+###      SelfPlaying RPG - Readme
+###
+###		Author : Tobias Gepp	12.April.2018
+###
+###	Description of what the program is about
+### and roughly mentioning the wanted features.
+###
 ##################################
 
-### Shor description
+### Short description
 
 This is a game based on interaction between human and artificial intelligence.
 In an rpg-style world npc's are not bound to a simple script,
@@ -52,4 +59,8 @@ Memory
 		May be Geneticly controlled to adapt to changes of the Characters.
 		(Includes Rocks, Trees and the like)
 		
-	
+-----------------------------------------------------------------------------
+------------------------   CODING
+-----------------------------------------------------------------------------
+
+The prefered code style is described in 'CodeStyle.txt' in the main project folder.

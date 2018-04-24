@@ -1,0 +1,9 @@
+{
+  "doodad": {
+    "test": {
+      "image": "test",
+      "size": [100,100]
+    }
+  }
+
+}

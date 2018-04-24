@@ -1,24 +1,36 @@
+#include <iostream>
+#include <Windows.h>
+#include <boost/stacktrace.hpp>
 #include <SFML/Graphics.hpp>
+#include "visualization\header\Sprite.h"
+
+#if DEBUG
+namespace tests
+{
+	int draw_sprite();
+	int draw_layer();
+	int draw_visualizer();
+	int draw_resources();
+	int read_json();
+	int load_resources();
+	int run_application();
+	int create_doodads();
+	int novo_tree();
+	int stringify();
+}
+#endif
+
+void test()
+{
+
+}
+
+void run()
+{
+
+}
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
-
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
-
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
-
-	return 0;
+	return tests::novo_tree();
 }

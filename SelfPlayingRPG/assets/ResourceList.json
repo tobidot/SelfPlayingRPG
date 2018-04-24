@@ -1,0 +1,18 @@
+{
+  "images": [
+    {
+      "id": "test",
+      "file": "assets/images/test.bmp"
+    },
+    {
+      "id": "test2",
+      "file": "assets/images/test2.bmp"
+    }
+  ],
+  "jsons": [
+    "assets/jsons/doodads.json"
+  ]    
+}
+
+
+

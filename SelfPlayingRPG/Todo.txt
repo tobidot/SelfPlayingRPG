@@ -1,0 +1,11 @@
+
+
+- Buff/Effect System
+- Health System
+- TEST : Picking
+- Spawn Initial Doodads
+
+- NovoTree - Done
+- Game Objects - Partial
+- Asset Manager - Done
+- SFML Draw  - Done
