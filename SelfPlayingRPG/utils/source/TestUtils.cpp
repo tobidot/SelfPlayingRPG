@@ -20,12 +20,12 @@ namespace tests
 	{
 		using NTree = NovoTree<Point<float>, 2>;
 		cout << "Test : novo_tree" << endl;
-		NTree::Bounds bounds (0,0,10,10);
+		NTree::Bounds bounds (0.0f,0.0f,10.0f,10.0f);
 		cout << "create tree with bounds "<< std::to_string(bounds) << endl;
 		NTree::GET_POS_FUNCTION getPosFunc = [](const utils::Point<float> &p) {
 			return utils::Point<float>(p); 
 		};
-		NTree tree(bounds, getPosFunc, 3);
+		NTree tree(bounds, getPosFunc, nullptr, 3);
 		cout << std::to_string(tree);
 
 
@@ -46,14 +46,16 @@ namespace tests
 		tree.insert({ 2, 8 });
 		cout << std::to_string(tree);
 		assert(tree.has_children() == true);
-		assert(tree.count_elements() == 0);
+		cout << tree.count_elements();
+		assert(tree.count_elements() == 3);
 
 		std::srand(clock());
 		while (getchar() != 'q')
 		{
 			clear();
 			cout << "Elements per Child 1, Max Depth 3" << endl;
-			auto p = Point<float>((float)(std::rand() % 10), (float)(std::rand() % 10) );
+
+			auto p = Point<float>((std::rand() % 10), (std::rand() % 10) );
 			cout << "insert " << std::to_string(p) << endl;
 			tree.insert(p);
 			cout << std::to_string(tree);

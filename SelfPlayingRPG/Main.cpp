@@ -17,6 +17,9 @@ namespace tests
 	int create_doodads();
 	int novo_tree();
 	int stringify();
+
+	int run_application();
+	int create_doodads();
 }
 #endif
 
@@ -32,5 +35,5 @@ void run()
 
 int main()
 {
-	return tests::novo_tree();
+	return tests::create_doodads();
 }

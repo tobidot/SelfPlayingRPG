@@ -9,6 +9,7 @@
 #include "visualization\header\Layer.h"
 #include "asset_manager\header\AssetManager.h"
 #include "exceptions\header\AssetManagerExceptions.h"
+#include "utils\header\Bounds.h"
 
 
 namespace game
@@ -20,6 +21,12 @@ namespace game
 	{
 		my_asset_manager->load_resources(resourceList);
 		my_visualizer->add_layer(std::make_shared<visualization::Layer>("Game", 0));
+		utils::Bounds<float> bounds = {-100,-100,100,100};
+		NovoTree::GET_POS_FUNCTION getPosFunc = [](const ObjectPtr::Shared &obj) {
+			return utils::Point<float>(0,0);
+		};
+		size_t depth = 16;
+		my_world = std::make_shared<NovoTree>(bounds, getPosFunc, nullptr, depth);
 	}
 
 	Application::~Application()

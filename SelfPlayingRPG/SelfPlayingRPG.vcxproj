@@ -139,7 +139,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>E:\Boost\boost_1_66_0;E:\SFML\2_4_2_install\include;$(SolutionDir)\SelfPlayingRPG\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\Boost\boost_1_67_0;E:\SFML\2_4_2_install\include;$(SolutionDir)\SelfPlayingRPG\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>DEBUG;BOOST_USER_CONFIG="./boost_extension/header/stack_trace_config.h";BOOST_STACKTRACE_LINK;BOOST_STACKTRACE_USE_WINDBG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>

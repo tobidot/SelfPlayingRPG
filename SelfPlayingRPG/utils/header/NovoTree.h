@@ -4,6 +4,7 @@
 #include <array>
 #include <vector>
 #include <functional>
+#include <numeric>
 #include <SFML\Graphics\Rect.hpp>
 #include <SFML\System\Vector2.hpp>
 #include "SharedPointerDefintion.h"
@@ -89,6 +90,7 @@ namespace utils
 			}
 			return nullptr;
 		};
+
 		bool contains(const ELEMENT &element) const
 		{
 			const sf::Vector2f position = my_get_position_of(element);
@@ -115,11 +117,53 @@ namespace utils
 			}
 			return out;
 		}
+
 		size_t count_elements() const
 		{
-			return my_elements ? my_elements->size() : 0;
+			if (has_children())
+			{
+				return std::reduce(my_children->begin(), my_children->end(), 0ull, [](size_t acc, std::shared_ptr<ChildType> child ) {
+					if (!child) return acc;
+					return acc + child->count_elements();					
+				});
+			}
+			else
+			{
+				return my_elements ? my_elements->size() : 0;
+			}
 		}
 
+		void divide()
+		{
+			// create children
+			my_children = std::make_shared<ChildList>();
+			assert(my_children);
+			const float childWidth = (my_bounds.right - my_bounds.left) / 3;
+			const float childHeight = (my_bounds.bottom - my_bounds.top) / 3;
+			const float centerX = (my_bounds.right + my_bounds.left) / 2;
+			const float centerY = (my_bounds.bottom + my_bounds.top) / 2;
+			for (int i = 0; i < 3; ++i) for (int j = 0; j < 3; ++j)
+			{
+				auto bounds = utils::Bounds<float>(
+					my_bounds.left + childWidth * (i),
+					my_bounds.top + childHeight * (j),
+					my_bounds.left + childWidth * (i + 1),
+					my_bounds.top + childHeight * (j + 1)
+					);
+				auto pos = bounds.center();
+				ChildID childID = get_childID_for(pos);
+				my_children->at(childID) = std::make_shared<ChildType>(bounds, my_get_position_of, this, my_max_depth - 1);
+			}
+			// resinsert all elements
+			while (my_elements->empty() == false)
+			{
+				auto &e = my_elements->back();
+				insert(e);
+				my_elements->pop_back();
+			}
+			// destroy element list
+			my_elements.reset();
+		}
 		std::string to_string(const std::string &indent = "") const
 		{
 			std::stringstream stream;
@@ -145,6 +189,8 @@ namespace utils
 			}
 			return stream.str();
 		}
+
+		inline bool is_root() const { return my_parent == nullptr; }
 		inline SelfType *get_parent() const { return my_parent; }
 		inline bool has_children() const { return my_children.get() != nullptr; };
 		inline bool has_elements() const { return my_elements.get() != nullptr && my_elements->empty() == false; };
@@ -158,37 +204,7 @@ namespace utils
 			return static_cast<ChildID>((left << 3) + (right << 2) + (top << 1) + (bottom));
 		}
 
-		void divide()
-		{
-			// create children
-			my_children = std::make_shared<ChildList>();
-			assert(my_children);
-			const float childWidth = (my_bounds.right - my_bounds.left) / 3;
-			const float childHeight = (my_bounds.bottom - my_bounds.top) / 3;
-			const float centerX = (my_bounds.right + my_bounds.left) / 2;
-			const float centerY = (my_bounds.bottom + my_bounds.top) / 2;
-			for (int i = 0; i < 3; ++i) for (int j = 0; j < 3; ++j)
-			{
-				auto bounds = utils::Bounds<float>(
-					my_bounds.left + childWidth * (i ),
-					my_bounds.top + childHeight * (j ),
-					my_bounds.left + childWidth * (i + 1),
-					my_bounds.top + childHeight * (j + 1)
-				);
-				auto pos = bounds.center();
-				ChildID childID = get_childID_for(pos);
-				my_children->at(childID) = std::make_shared<ChildType>(bounds, my_get_position_of, this, my_max_depth - 1);
-			}
-			// resinsert all elements
-			while (my_elements->empty() == false)
-			{
-				auto &e = my_elements->back();
-				insert(e);
-				my_elements->pop_back();
-			}
-			// destroy element list
-			my_elements.reset();
-		}
+		
 	public:
 
 	};

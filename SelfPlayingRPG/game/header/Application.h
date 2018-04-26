@@ -6,6 +6,7 @@
 #include "visualization\header\Visualizer.h"
 #include "exceptions\header\GameExceptions.h"
 #include "asset_manager\header\AssetManager.h"
+#include "utils\header\NovoTree.h"
 
 
 namespace sf
@@ -41,11 +42,14 @@ namespace game
 	{
 	public:
 		using Ptr = utils::SharedPointerDefition<Application>;
+		using NovoTree = utils::NovoTree < ObjectPtr::Shared, 64 >;
+
 	private:
 		sf::RenderWindowPtr::Unique my_window;
 		assets::AssetManagerPtr::Unique my_asset_manager;
 		visualization::VisualizerPtr::Unique my_visualizer;
 		std::vector<ObjectPtr::Shared> my_game_objects; 
+		std::shared_ptr<NovoTree> my_world = nullptr;
 	public:
 		Application(int width, int height, const std::string &label, const std::string &resourceList = "assets/ResourceList.json");
 		~Application();

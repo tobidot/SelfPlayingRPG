@@ -16,10 +16,16 @@ namespace utils
 	public:
 		T x, y;
 	public:
-		Point(const T& x, const T& y)
+		Point(const T& x = 0, const T& y = 0)
 		{
 			this->x = x;
 			this->y = y;
+		}
+		template<typename R>
+		Point(const R& x = 0, const R& y = 0)
+		{
+			this->x = static_cast<const T>(x);
+			this->y = static_cast<const T>(y);
 		}
 		operator sf::Vector2<T>()
 		{
